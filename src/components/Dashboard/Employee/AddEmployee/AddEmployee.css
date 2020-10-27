@@ -1,0 +1,20 @@
+.WorkingDays {
+    display: flex;
+    align-items: center;
+}
+.WorkingDays > * {
+    width: 10%;
+    margin: 10px;
+}
+.Hours {
+    display: flex;
+    align-items: center;
+}
+.Hours > span {
+    margin-right: 10px;
+}
+@media screen and (max-width: 800px) {
+    .WorkingDays > * {
+        width: 25%;
+    }
+}

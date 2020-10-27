@@ -1,0 +1,51 @@
+.SideNav {
+  width: 15%;
+  position: fixed;
+  height: 100vh;
+  /* padding-top: 100px; */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.SideNav > a {
+  padding: 0px;
+  margin: 0;
+}
+.IconText {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 1.3em;
+  width: 100%;
+  margin: 10px 0;
+}
+.IconText:hover,
+.IconTextActive {
+  background: #1c54bc;
+  color: white;
+}
+.IconText > p {
+  flex: 1;
+  padding: 5px;
+  padding-left: 5px;
+  margin: 0;
+}
+@media screen and (min-width: 2000px) {
+  .SideNav {
+    width: calc(1440px * 15 / 100);
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 800px) {
+    .IconText {
+        font-size: .7em;
+    }
+}
+@media screen and (max-width: 500px) {
+  .SideNav {
+    display: none;
+  }
+  .IconText {
+      font-size: 1em;
+  }
+}

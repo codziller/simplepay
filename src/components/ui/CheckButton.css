@@ -1,0 +1,11 @@
+.CheckButton {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.CheckButton > i {
+    margin-right: 10px;
+}
+.Checked {
+    color: #4caf50;
+}

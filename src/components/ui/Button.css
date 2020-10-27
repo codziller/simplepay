@@ -1,0 +1,17 @@
+.Button {
+  border: none;
+  width: 230px;
+  padding: 10px;
+  font-size: 1em;
+  box-shadow: 2px 2px 3px lightgray;
+  cursor: pointer;
+  margin: 20px 0;
+  background: #1c54b2;
+  color: white;
+  border-radius: 3px;
+}
+@media screen and (max-width: 800px) {
+  .Button {
+    width: 150px;
+  }
+}

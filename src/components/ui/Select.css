@@ -1,0 +1,9 @@
+.Select {
+    /* width: 100%; */
+    padding: 10px 20px;
+    color: black;
+    margin: 10px 0;
+}
+.Select > option {
+    padding: 10px 20px;
+}

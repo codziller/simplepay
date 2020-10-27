@@ -1,0 +1,15 @@
+.Login {
+    width: 35%;
+    margin: auto;
+    margin-top: 50px;
+}
+@media screen and (max-width: 800px) {
+    .Login {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .Login {
+        width: 90%;
+    }
+}

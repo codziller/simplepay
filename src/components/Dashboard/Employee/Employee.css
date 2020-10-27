@@ -1,0 +1,25 @@
+.TabHeader {
+  display: flex;
+}
+.TabHeaderItem {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+.TabHeaderItemActive {
+  background: #1c54b2;
+  color: white;
+}
+@media screen and (max-width: 800px) {
+  .TabHeaderItem {
+    font-size: 0.95em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .TabHeaderItem {
+    font-size: 0.75em;
+  }
+}
