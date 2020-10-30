@@ -3,6 +3,9 @@
     margin: auto;
     margin-top: 50px;
 }
+.Error {
+    color: tomato;
+}
 @media screen and (max-width: 800px) {
     .Login {
         width: 50%;

@@ -1,11 +1,12 @@
 .KeyValue {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .Key {
-    width: 20%;
+  width: 20%;
 }
 .Value {
-    width: 75%;
+  width: 75%;
 }

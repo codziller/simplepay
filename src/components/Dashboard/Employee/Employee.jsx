@@ -1,7 +1,17 @@
 import React, { useState } from "react";
+import TabHeader from "../../ui/TabHeader";
 import AddEmployee from "./AddEmployee/AddEmployee";
 import "./Employee.css";
 import EmployeeList from "./EmployeeList/EmployeeList";
+import SelfService from "./SelfService/SelfService";
+
+const headerData = [
+  {key_: 'list', title: 'Employee List'},
+  {key_: 'add', title: 'Add New Employee'},
+  {key_: 'self', title: 'Self-Service'},
+  {key_: 'leave', title: 'Leave Overview'},
+  {key_: 'bulk', title: 'Bulk Actions'},
+]
 
 const Employee = () => {
   const [current, setCurrent] = useState("list");
@@ -24,59 +34,11 @@ const Employee = () => {
   return (
     <div className="Employee">
       <h1>Employees</h1>
-      <div className="TabHeader">
-        <div
-          onClick={() => setCurrent("list")}
-          className={
-            current === "list"
-              ? "TabHeaderItem  TabHeaderItemActive"
-              : "TabHeaderItem"
-          }
-        >
-          <div>Employee List</div>
-        </div>
-        <div
-          onClick={() => setCurrent("add")}
-          className={
-            current === "add"
-              ? "TabHeaderItem  TabHeaderItemActive"
-              : "TabHeaderItem"
-          }
-        >
-          <div>Add New Employee</div>
-        </div>
-        <div
-          onClick={() => setCurrent("self")}
-          className={
-            current === "self"
-              ? "TabHeaderItem  TabHeaderItemActive"
-              : "TabHeaderItem"
-          }
-        >
-          <div>Self-Service</div>
-        </div>
-        <div
-          onClick={() => setCurrent("leave")}
-          className={
-            current === "leave"
-              ? "TabHeaderItem  TabHeaderItemActive"
-              : "TabHeaderItem"
-          }
-        >
-          <div>Leave Overview</div>
-        </div>
-        <div
-          onClick={() => setCurrent("bulk")}
-          className={
-            current === "bulk"
-              ? "TabHeaderItem  TabHeaderItemActive"
-              : "TabHeaderItem"
-          }
-        >
-          <div>Bulk Actions</div>
-        </div>
-      </div>
-      <hr />
+      <TabHeader
+        current={current}
+        setCurrent={(current) => setCurrent(current)}
+        data={headerData}
+      />
       {current === "list" ? (
         <EmployeeList
           showModal={showModal}
@@ -110,6 +72,7 @@ const Employee = () => {
         />
       ) : null}
       {current === "add" ? <AddEmployee /> : null}
+      {current === "self" ? <SelfService /> : null}
     </div>
   );
 };

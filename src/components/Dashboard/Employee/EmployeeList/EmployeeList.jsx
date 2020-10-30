@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { BASE_URL } from "../../../../helpers/API_CONFIG";
 import Button from "../../../ui/Button";
 import CheckButton from "../../../ui/CheckButton";
 import Input from "../../../ui/Input";
@@ -6,6 +7,7 @@ import Modal from "../../../ui/Modal";
 import Select from "../../../ui/Select";
 import "./EmployeeList.css";
 import EmploymentTable from "./EmploymentTable";
+import axios from "axios";
 
 const tableData = [
   {
@@ -29,6 +31,105 @@ const tableData = [
 ];
 
 const EmployeeList = (props) => {
+  const [weeklyLoading, setWeeklyLoading] = useState(false);
+  const [weeklyError, setWeeklyError] = useState(false);
+  const [weeklyEmployees, setWeeklyEmployees] = useState(null);
+  const [weeklyPage, setWeeklyPage] = useState(1);
+  const [weeklyCount, setWeeklyCount] = useState(0);
+  const [weeklyPrevious, setWeeklyPrevious] = useState(null);
+  const [weeklyNext, setWeeklyNext] = useState(null);
+  const [monthlyLoading, setMonthlyLoading] = useState(false);
+  const [monthlyError, setMonthlyError] = useState(false);
+  const [monthlyPage, setMonthlyPage] = useState(1);
+  const [monthlyCount, setMonthlyCount] = useState(0);
+  const [monthlyEmployees, setMonthlyEmployees] = useState(null);
+  const [monthlyPrevious, setMonthlyPrevious] = useState(null);
+  const [monthlyNext, setMonthlyNext] = useState(null);
+
+  const fetchWeeklyEmployees = (aUrl = null) => {
+    let isActive = "";
+    if (props.status === "active") {
+      isActive = "&is_active=True";
+    } else if (props.status === "inactive") {
+      isActive = "&is_active=False";
+    }
+    let sort = "";
+    if (props.weeklySort === "dec") {
+      sort = "&reverse=True";
+    }
+    let url =
+      BASE_URL +
+      `/api/employees/?pay_frequency=weekly&page=${weeklyPage}${isActive}${sort}`;
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    };
+    if (aUrl) {
+      url = aUrl;
+    }
+    setWeeklyLoading(true);
+    setWeeklyError(false);
+    axios
+      .get(url, { headers: headers })
+      .then((res) => {
+        console.log(res.data);
+        setWeeklyLoading(false);
+        setWeeklyEmployees(res.data.results);
+        setWeeklyPrevious(res.data.previous);
+        setWeeklyNext(res.data.next);
+        setWeeklyCount(res.data.count);
+      })
+      .catch(() => {
+        setWeeklyLoading(false);
+        setWeeklyError(true);
+      });
+  };
+
+  const fetchMonthlyEmployees = (aUrl = null) => {
+    let isActive = "";
+    if (props.status === "active") {
+      isActive = "&is_active=True";
+    } else if (props.status === "inactive") {
+      isActive = "&is_active=False";
+    }
+    let sort = "";
+    if (props.monthlySort === "dec") {
+      sort = "&reverse=True";
+    } 
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    };
+    let url =
+      BASE_URL +
+      `/api/employees/?pay_frequency=monthly&page=${monthlyPage}${isActive}${sort}`;
+    if (aUrl) {
+      url = aUrl;
+    }
+    setMonthlyLoading(true);
+    setMonthlyError(false);
+    axios
+      .get(url, { headers: headers })
+      .then((res) => {
+        console.log(res);
+        setMonthlyLoading(false);
+        setMonthlyEmployees(res.data.results);
+        setMonthlyPrevious(res.data.previous);
+        setMonthlyNext(res.data.next);
+        setMonthlyCount(res.data.count);
+      })
+      .catch(() => {
+        setMonthlyLoading(false);
+        setMonthlyError(true);
+      });
+  };
+
+  useEffect(() => {
+    fetchWeeklyEmployees();
+  }, [props.weeklySort]);
+
+  useEffect(() => {
+    fetchMonthlyEmployees();
+  }, [props.monthlySort]);
+
   let modalContent;
   switch (props.current) {
     case "point":
@@ -103,27 +204,69 @@ const EmployeeList = (props) => {
         />
       </div>
       <br />
-      <EmploymentTable
-        type="weekly"
-        title="Weekly, ending on Wednesday"
-        quantity={props.weeklyQuantity}
-        onChange={(val) => props.setWeeklyQuantity(val)}
-        sort={props.weeklySort}
-        toggleSort={props.toggleWeeklySort}
-        data={tableData}
-        page={1}
-      />
-      <br />
-      <EmploymentTable
-        type="monthly"
-        title="Monthly, ending on the 31st"
-        quantity={props.monthlyQuantity}
-        onChange={(val) => props.setMonthlyQuantity(val)}
-        sort={props.monthlySort}
-        toggleSort={props.toggleMonthlySort}
-        data={tableData}
-        page={2}
-      />
+      {props.frequencyWeekly ? (
+        <>
+          <EmploymentTable
+            type="weekly"
+            title="Weekly, ending on Wednesday"
+            quantity={props.weeklyQuantity}
+            onChange={(val) => props.setWeeklyQuantity(val)}
+            sort={props.weeklySort}
+            toggleSort={() => {
+              props.toggleWeeklySort();
+              setWeeklyPage(1);
+            }}
+            data={weeklyEmployees}
+            loading={weeklyLoading}
+            error={weeklyError}
+            page={weeklyPage}
+            count={weeklyCount}
+            setPage={(page) => setWeeklyPage(page)}
+            previous={weeklyPrevious}
+            next={weeklyNext}
+            nextOrPreviousPage={(type) => {
+              if (type === "previous") {
+                fetchWeeklyEmployees(weeklyPrevious);
+                setWeeklyPage(weeklyPage - 1);
+              } else {
+                fetchWeeklyEmployees(weeklyNext);
+                setWeeklyPage(weeklyPage + 1);
+              }
+            }}
+          />
+          <br />
+        </>
+      ) : null}
+      {props.frequencyMonthly ? (
+        <EmploymentTable
+          type="monthly"
+          title="Monthly, ending on the 31st"
+          quantity={props.monthlyQuantity}
+          onChange={(val) => props.setMonthlyQuantity(val)}
+          sort={props.monthlySort}
+          toggleSort={() => {
+            props.toggleMonthlySort();
+            setMonthlyPage(1);
+          }}
+          data={monthlyEmployees}
+          loading={monthlyLoading}
+          error={monthlyError}
+          page={monthlyPage}
+          count={monthlyCount}
+          setPage={(page) => setMonthlyPage(page)}
+          previous={monthlyPrevious}
+          next={monthlyNext}
+          nextOrPreviousPage={(type) => {
+            if (type === "previous") {
+              fetchMonthlyEmployees(monthlyPrevious);
+              setMonthlyPage(monthlyPage - 1);
+            } else {
+              fetchMonthlyEmployees(monthlyNext);
+              setMonthlyPage(monthlyPage + 1);
+            }
+          }}
+        />
+      ) : null}
     </div>
   );
 };

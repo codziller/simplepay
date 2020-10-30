@@ -4,3 +4,20 @@
 .Body {
   margin-top: 100px;
 }
+@media screen and (max-width: 1300px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  p,
+  div,
+  span,
+  button {
+    font-size: 0.8rem;
+  }
+}

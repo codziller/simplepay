@@ -1,25 +1,43 @@
 .TabHeader {
+  width: 100%;
+  overflow-x: auto;
+  border: .5px solid lightgray;
+}
+.TabHeader > div {
   display: flex;
+  justify-content: flex-start;
 }
 .TabHeaderItem {
   margin: 5px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 10px;
+  margin: 0 5px;
   cursor: pointer;
+  box-sizing: content-box;
+}
+.TabHeaderItem > div {
+  padding: 10px 20px;
+  width: max-content;
 }
 .TabHeaderItemActive {
   background: #1c54b2;
   color: white;
 }
+.TableLoading {
+  background: rgba(0, 0, 0, 0.76);
+  display: flex;
+  justify-content: center;
+}
 @media screen and (max-width: 800px) {
   .TabHeaderItem {
     font-size: 0.95em;
   }
+  .TabHeader > div {
+    min-width: 150%;
+  }
 }
 @media screen and (max-width: 500px) {
   .TabHeaderItem {
-    font-size: 0.75em;
+    font-size: 0.5em;
   }
 }

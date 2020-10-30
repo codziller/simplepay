@@ -1,0 +1,66 @@
+.PayrollCards {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.PayrollCards > * {
+  width: 32%;
+}
+.PayslipFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.PayslipFooter > div > * {
+  margin: 0 5px;
+}
+.PayslipFooter button {
+  background: #1c54b2;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+}
+@media screen and (max-width: 1300px) {
+  .PayslipFooter {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .PayslipFooter > div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .PayslipFooter > div * {
+    margin: 0;
+  }
+}
+.PayrollChart, .RecentActivity {
+    margin: 50px 0;
+}
+.RecentActivity > p {
+    list-style: upper-alpha;
+    display: flex;
+    align-items: flex-start;
+}
+.RecentActivity > p > b {
+    width:  20px;
+}
+@media screen and (max-width: 800px) {
+  .PayrollCards > * {
+    width: 49%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .PayrollCards {
+    justify-content: center;
+  }
+  .PayrollCards > * {
+    width: 100%;
+    margin: 20px 0;
+  }
+}

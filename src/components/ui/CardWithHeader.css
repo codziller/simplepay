@@ -1,0 +1,35 @@
+.CardWithHeader {
+  box-shadow: 2px 2px 3px 2px rgba(211, 211, 211, 0.4);
+}
+.CardHeader {
+  background: #1c54b2;
+  padding: 10px 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.CardBody {
+  padding: 20px;
+}
+.CardBody > * > * {
+  margin: 5px;
+}
+.RegularInputsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.RegularInputsHeader > div {
+  padding: 5px 10px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+.Payroll a {
+    color: #2196f3;
+}
+.SpaceKeyValue {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}

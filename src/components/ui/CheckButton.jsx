@@ -8,7 +8,7 @@ const CheckButton = (props) => (
     ) : (
       <i className="far fa-check-square"></i>
     )}
-    <p>{props.title}</p>
+    {props.title?<p>{props.title}</p>:null}
   </div>
 );
 

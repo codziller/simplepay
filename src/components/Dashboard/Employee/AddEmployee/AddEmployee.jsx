@@ -36,7 +36,7 @@ const AddEmployee = (props) => {
   const [countryCode, setCountryCode] = useState("");
   const [jobTitle, setJobTitle] = useState("");
 
-  const [nextPage, setNextPage] = useState(true);
+  const [nextPage, setNextPage] = useState(false);
 
   const [hourlyPaid, setHourlyPaid] = useState(false);
   const [hoursPerDay, setHoursPerDay] = useState(8);
