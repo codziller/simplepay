@@ -1,0 +1,128 @@
+.Payrun {
+  display: flex;
+  justify-content: space-between;
+}
+.PayrunLeft {
+  width: 65%;
+}
+.PayrunRight {
+  width: 33%;
+}
+.PayslipsCount {
+  display: flex;
+  align-items: flex-start;
+}
+.PayslipsCount > div {
+  width: 30%;
+  border: 1px solid lightgray;
+}
+.PayslipsCount > div > hr {
+  margin: 2px 0;
+}
+.PayslipCountHeader {
+  margin: 0;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #8080808a;
+}
+.PayslipCount,
+.PayslipsCount > div > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.PayslipCount {
+  font-size: 3em;
+  margin: 5px;
+}
+.PayslipsCount > div > a {
+  color: #2196f3;
+}
+.PayrunBtn {
+  border: none;
+  padding: 7px 20px;
+  background: white;
+  border: 2px solid #1c54b2;
+  color: #1c54b2;
+  border-radius: 4.5px;
+  cursor: pointer;
+}
+.PayrunBtn:hover {
+  opacity: 0.7;
+}
+.PayrunLeft > p {
+  color: #2196f3;
+  cursor: pointer;
+  margin: 0;
+}
+.PayrunLeft > h3 {
+  margin-top: 5px;
+}
+.PaySummary {
+  margin-top: 50px;
+}
+.SpaceHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.PaymentInfoHeader,
+.PaymentInfoBody {
+  display: flex;
+  /* justify-content: space-between; */
+}
+.PaymentInfoBody a {
+  color: #2196f3;
+  font-size: 1em !important;
+}
+.PaymentInfoBody > div,
+.PaymentInfoHeader > h4 {
+  width: calc(100% / 4);
+  display: flex;
+  align-items: center;
+}
+.PaymentInfoBody > div > * {
+  margin: 5px;
+  font-size: 1.5em;
+}
+.AccountInfo {
+  font-size: 1.5em;
+}
+.AccountInfo > i {
+  margin: 0 5px;
+}
+.PaySummary i {
+    cursor: pointer;
+}
+.PaymentInfoCounter {
+  padding: 2px 5px;
+  background: #e2e2e2a1;
+  box-sizing: border-box !important;
+}
+.ShowMore {
+  color: #2196f3;
+  margin: 50px 0;
+  cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .Payrun {
+    flex-direction: column;
+  }
+  .Payrun > div {
+    width: 100%;
+  }
+  .PaymentTable {
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  .PaymentInfoHeader,
+  .PaymentInfoBody {
+    width: 150%;
+  }
+  .PaymentTable > hr {
+    width: 150%;
+  }
+}

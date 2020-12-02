@@ -6,6 +6,9 @@ import KeyValue from "../../../ui/KeyValue";
 import Select from "../../../ui/Select";
 import "./AddEmployee.css";
 import { countryData } from "./CountryData";
+import { BASE_URL } from "../../../../helpers/API_CONFIG";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const AddEmployee = (props) => {
   const [payFrequency, setPayFrequency] = useState("");
@@ -15,8 +18,8 @@ const AddEmployee = (props) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [legalStatus, setLegalStatus] = useState("");
   const [gender, setGender] = useState("");
-  //   const [race, setRace] = useState("");
-  //   const [religion, setReligion] = useState("");
+  const [race, setRace] = useState("");
+  const [religion, setReligion] = useState("");
   const [sdlExempt, setSdlExempt] = useState(false);
   const [cpfExempt, setCpfExempt] = useState(false);
   const [email, setEmail] = useState("");
@@ -74,9 +77,131 @@ const AddEmployee = (props) => {
 
   const [fullDaysPerWeek, setFullDaysPerWeek] = useState(5);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [bankData, setBankValues] = useState([]);
+
   const submitEmployee = () => {
-    alert("submitted...");
+    let legal = "";
+    switch (legalStatus) {
+      case "Citizen":
+        legal = "citizen";
+        break;
+      case "Permanent Resident":
+        legal = "permanent_resident";
+        break;
+      case "Foreigner (except Work Permit)":
+        legal = "foreigner_except_work_permit";
+        break;
+      case "Foreigner (Work Permit)":
+        legal = "foreigner_work_permit";
+        break;
+      case "Foreign Director (Malaysia)":
+        legal = "foreign_director_malaysia";
+        break;
+      default:
+        legal = "foreign_director_other";
+    }
+    let aType = "";
+    switch (addressType) {
+      case "Local residential address":
+        aType = "local_residential_address";
+        break;
+      case "Foreign address":
+        aType = "foreign_address";
+        break;
+      case "Local C/O address":
+        aType = "local_c/o_address";
+        break;
+      default:
+        aType = "not_available";
+    }
+    const data = {
+      user: {
+        email: email,
+        first_name: firstname,
+        last_name: lastname,
+        username: email,
+        password: "password",
+      },
+      bank: parseInt(bank.split("-")[0]),
+      basic_salary: 0,
+      pay_frequency:
+        payFrequency === "Weekly, ending on Wednesday" ? "weekly" : "monthly",
+      date_of_birth: dob,
+      date_of_appointment: appointmentDate,
+      legal_status: legal,
+      // nric: "122455",
+      gender: gender === "Male" ? "male" : "female",
+      race: race,
+      religion: religion,
+      sdl_exempt: sdlExempt,
+      cpf_exempt: cpfExempt,
+      payment_method: "cash",
+      account_number: accountNumber,
+      branch_code: branchCode,
+      address_type: aType,
+      block_no: blockNumber,
+      street_name: streetName,
+      level_no: levelNumber,
+      unit_no: unitNumber,
+      post_code: postalCode,
+      job_title: jobTitle,
+      monday_active: mondayChecked,
+      monday_normal_partial:
+        mondayNormalPartial === "Normal Day" ? "normal" : "partial",
+      monday_hours: mondayHours,
+      tuesday_active: tuesdayChecked,
+      tuesday_normal_partial:
+        tuesdayNormalPartial === "Normal Day" ? "normal" : "partial",
+      tuesday_hours: tuesdayHours,
+      wednesday_active: wednesdayChecked,
+      wednesday_normal_partial:
+        wednesdayNormalPartial === "Normal Day" ? "normal" : "partial",
+      wednesday_hours: wednesdayHours,
+      thursday_active: thursdayChecked,
+      thursday_normal_partial:
+        thursdayNormalPartial === "Normal Day" ? "normal" : "partial",
+      thursday_hours: thursdayHours,
+      friday_active: fridayChecked,
+      friday_normal_partial:
+        fridayNormalPartial === "Normal Day" ? "normal" : "partial",
+      friday_hours: fridayHours,
+      saturday_active: saturdayChecked,
+      saturday_normal_partial:
+        saturdayNormalPartial === "Normal Day" ? "normal" : "partial",
+      saturday_hours: saturdayHours,
+      sunday_active: sundayChecked,
+      sunday_normal_partial:
+        sundayNormalPartial === "Normal Day" ? "normal" : "partial",
+      sunday_hours: sundayHours,
+    };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    };
+    const url = BASE_URL + "/api/employees/";
+    setLoading(true);
+    setError(false);
+    axios.post(url, data, { headers: headers }).then((res) => {
+      setLoading(false);
+      props.history.push("/employee/" + res.data.id);
+    });
   };
+
+  const fetchBank = () => {
+    const url = BASE_URL + "/api/banks/";
+    const headers = {
+      Authorization: "Bearer " + localStorage.getItem("access_token"),
+    };
+    axios.get(url, { headers: headers }).then((res) => {
+      setBankValues(res.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchBank();
+  }, []);
 
   useEffect(() => {
     const fullDaysCalculation = () => {
@@ -201,7 +326,8 @@ const AddEmployee = (props) => {
               "Permanent Resident",
               "Foreigner (except Work Permit)",
               "Foreigner (Work Permit)",
-              "Foreign Director",
+              "Foreign Director (Malaysia)",
+              "Foreign Director (Others)",
             ]}
             required
           />
@@ -211,6 +337,22 @@ const AddEmployee = (props) => {
             onChange={(val) => setGender(val)}
             value={gender}
             data={["Male", "Female"]}
+            required
+          />
+        </KeyValue>
+        <KeyValue key_="Race">
+          <Select
+            onChange={(val) => setRace(val)}
+            value={race}
+            data={["chinese", "indian", "malay", "eurasian", "other"]}
+            required
+          />
+        </KeyValue>
+        <KeyValue key_="Religion">
+          <Select
+            onChange={(val) => setReligion(val)}
+            value={religion}
+            data={["buddhist", "christian", "hindu", "muslim", "other"]}
             required
           />
         </KeyValue>
@@ -242,7 +384,7 @@ const AddEmployee = (props) => {
           <Select
             onChange={(val) => setPaymentMethod(val)}
             value={paymentMethod}
-            data={["Cash", "Cheque", "GIRO"]}
+            data={["cash", "cheque", "GIRO"]}
             required
           />
         </KeyValue>
@@ -251,14 +393,7 @@ const AddEmployee = (props) => {
           <Select
             onChange={(val) => setBank(val)}
             value={bank}
-            data={[
-              "CITIBANK",
-              "DBS",
-              "HSBC",
-              "OCBC",
-              "STANDARD CHARTERED BANK",
-              "UOB",
-            ]}
+            data={bankData}
             required
           />
         </KeyValue>
@@ -706,4 +841,4 @@ const AddEmployee = (props) => {
   );
 };
 
-export default AddEmployee;
+export default withRouter(AddEmployee);

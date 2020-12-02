@@ -1,0 +1,11 @@
+.TransactionTable {
+    font-size: .5em;
+}
+.TransactionTable > tr {
+    display: flex;
+}
+.TransactionTable > tr > * {
+    width: calc(100%/21);
+    word-break: break-all;
+    box-sizing: border-box;
+}

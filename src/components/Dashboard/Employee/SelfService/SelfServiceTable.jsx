@@ -13,16 +13,16 @@ const SelfServiceTable = (props) => (
     <hr />
     {props.services.map((item, i) => (
       <div key={i} className="SelfServiceTableBody">
-        <div>{item.firstname}, {item.lastname}</div>
+        <div>{item.user.first_name}, {item.user.last_name}</div>
         <Input
           noHeader
           placeHolder="Email address"
           onChange={(val) => props.onChange(val, i)}
-          value={item.email}
+          value={item.user.email}
           type="email"
         />
         <CheckButton
-          checked={item.enabled}
+          checked={item.is_selfservice}
           toggleCheck={() => props.toggleCheck(i)}
         />
         <div>Re-send activation</div>

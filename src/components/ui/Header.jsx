@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Header.css";
 
 const Header = (props) => (
@@ -13,14 +13,26 @@ const Header = (props) => (
         </div>
         <div className="Logo">SIMPLE PAY</div>
         <div className="HeaderNav">
-          <Link to="/">Home</Link>
-          <Link to="/">Login</Link>
-          <Link to="/">Signup</Link>
-          <div>Logout</div>
+          {localStorage.getItem("access_token") ? (
+            <Link to="/">Home</Link>
+          ) : null}
+          {!localStorage.getItem("access_token") ? (
+            <Link to="/login">Login</Link>
+          ) : null}
+          {localStorage.getItem("access_token") ? (
+            <div
+              onClick={() => {
+                localStorage.clear();
+                props.history.replace("/login");
+              }}
+            >
+              Logout
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
   </div>
 );
 
-export default Header;
+export default withRouter(Header);

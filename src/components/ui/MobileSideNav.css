@@ -4,7 +4,7 @@
   left: 0;
   width: 70vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 400;
   background: white;
   transition: 0.4s ease all;
   padding: 50px 10px;

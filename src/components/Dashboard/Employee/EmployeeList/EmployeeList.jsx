@@ -59,7 +59,7 @@ const EmployeeList = (props) => {
     }
     let url =
       BASE_URL +
-      `/api/employees/?pay_frequency=weekly&page=${weeklyPage}${isActive}${sort}`;
+      `/api/employees/?pay_frequency=weekly&limit=${props.weeklyQuantity}&search=${props.searchValue}&page=${weeklyPage}${isActive}${sort}`;
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("access_token"),
     };
@@ -94,13 +94,13 @@ const EmployeeList = (props) => {
     let sort = "";
     if (props.monthlySort === "dec") {
       sort = "&reverse=True";
-    } 
+    }
     const headers = {
       Authorization: "Bearer " + localStorage.getItem("access_token"),
     };
     let url =
       BASE_URL +
-      `/api/employees/?pay_frequency=monthly&page=${monthlyPage}${isActive}${sort}`;
+      `/api/employees/?pay_frequency=monthly&limit=${props.monthlyQuantity}&search=${props.searchValue}&page=${monthlyPage}${isActive}${sort}`;
     if (aUrl) {
       url = aUrl;
     }
@@ -124,11 +124,11 @@ const EmployeeList = (props) => {
 
   useEffect(() => {
     fetchWeeklyEmployees();
-  }, [props.weeklySort]);
+  }, [props.weeklySort, props.weeklyQuantity, props.searchValue]);
 
   useEffect(() => {
     fetchMonthlyEmployees();
-  }, [props.monthlySort]);
+  }, [props.monthlySort, props.monthlyQuantity, props.searchValue]);
 
   let modalContent;
   switch (props.current) {
@@ -198,7 +198,7 @@ const EmployeeList = (props) => {
         <Input
           placeHolder="Search"
           noHeader
-          onChange={(e) => props.searchChange(e.target.value)}
+          onChange={(val) => props.searchChange(val)}
           value={props.searchValue}
           type="text"
         />

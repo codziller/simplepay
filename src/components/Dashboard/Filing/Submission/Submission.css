@@ -1,0 +1,53 @@
+.CPFReturnHeader {
+  display: flex;
+}
+.CPFReturnHeader > div {
+  margin-right: 50px;
+}
+.Submission a {
+  color: #2196f3;
+}
+.FilingHeader,
+.FilingBody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* .FilingBody > div,
+.FilingHeader > h4 {
+  width: calc(100% / 4);
+} */
+.First {
+  width: 10%;
+}
+.Second {
+  width: 20%;
+}
+.Third {
+  width: 30%;
+}
+.Fourth {
+  width: 38%;
+}
+.FilingFiles {
+  /* width: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.FinalizeBtn {
+  background: #1c54b2;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .SubmissionTable {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+  .SubmissionTable > div {
+    width: 200%;
+  }
+}

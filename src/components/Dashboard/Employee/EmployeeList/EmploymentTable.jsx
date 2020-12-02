@@ -20,13 +20,15 @@ const EmploymentTable = (props) => {
     tableContent = props.data.map((employee) => (
       <div key={employee.id} className="EmploymentTableBody">
         <div>
-          <Link to="/employee/1">{employee.user.last_name}</Link>
+          <Link to={"/employee/" + employee.id}>{employee.user.last_name}</Link>
         </div>
         <div>
-          <Link to="/employee/1">{employee.user.first_name}</Link>
+          <Link to={"/employee/" + employee.id}>
+            {employee.user.first_name}
+          </Link>
         </div>
         <div>
-          <Link to="/employee/1">{employee.id}</Link>
+          <Link to={"/employee/" + employee.id}>{employee.id}</Link>
         </div>
       </div>
     ));

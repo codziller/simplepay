@@ -1,0 +1,61 @@
+.ReportContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.ReportContainer > div {
+  width: 48.5%;
+}
+.ReportLists {
+  display: flex;
+  flex-direction: column;
+}
+.ReportLists > a {
+  color: #2196f2;
+  margin: 10px 0;
+}
+.DateFilter {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.DateFilter > div {
+  width: 20%;
+  /* margin: 0 10px; */
+}
+span.AllNone {
+  color: #2196f2;
+  cursor: pointer;
+}
+span.AllNone:nth-of-type(2) {
+  margin-left: 10px;
+}
+.Rlists > div {
+  display: flex;
+}
+.PeriodFilter {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  height: fit-content;
+}
+.PeriodFilter > div {
+  width: 30%;
+}
+@media screen and (max-width: 800px) {
+  .DateFilter > div {
+    width: 35%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .ReportContainer {
+    flex-direction: column;
+  }
+  .ReportContainer > div {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .DateFilter > div {
+    width: 50%;
+  }
+}

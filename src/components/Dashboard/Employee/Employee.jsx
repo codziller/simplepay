@@ -3,15 +3,16 @@ import TabHeader from "../../ui/TabHeader";
 import AddEmployee from "./AddEmployee/AddEmployee";
 import "./Employee.css";
 import EmployeeList from "./EmployeeList/EmployeeList";
+import LeaveOverview from "./LeaveOverview/LeaveOverview";
 import SelfService from "./SelfService/SelfService";
 
 const headerData = [
-  {key_: 'list', title: 'Employee List'},
-  {key_: 'add', title: 'Add New Employee'},
-  {key_: 'self', title: 'Self-Service'},
-  {key_: 'leave', title: 'Leave Overview'},
-  {key_: 'bulk', title: 'Bulk Actions'},
-]
+  { key_: "list", title: "Employee List" },
+  { key_: "add", title: "Add New Employee" },
+  { key_: "self", title: "Self-Service" },
+  { key_: "leave", title: "Leave Overview" },
+  { key_: "bulk", title: "Bulk Actions" },
+];
 
 const Employee = () => {
   const [current, setCurrent] = useState("list");
@@ -73,6 +74,7 @@ const Employee = () => {
       ) : null}
       {current === "add" ? <AddEmployee /> : null}
       {current === "self" ? <SelfService /> : null}
+      {current === "leave" ? <LeaveOverview /> : null}
     </div>
   );
 };

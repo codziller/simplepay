@@ -10,6 +10,8 @@
 }
 .CardBody {
   padding: 20px;
+  transition: 0.4s ease all;
+  overflow-y: hidden;
 }
 .CardBody > * > * {
   margin: 5px;
@@ -26,7 +28,7 @@
   cursor: pointer;
 }
 .Payroll a {
-    color: #2196f3;
+  color: #2196f3;
 }
 .SpaceKeyValue {
   display: flex;

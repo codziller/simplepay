@@ -10,6 +10,21 @@
 .SelfServiceTableHeader > div {
   padding: 0 10px;
 }
+.SelfServiceTab {
+  display: flex;
+  align-items: center;
+}
+.SelfServiceTab > h3 {
+  margin: 0;
+}
+.SelfServiceTab > div {
+  margin: 0 10px;
+  color: #2979ff;
+  cursor: pointer;
+}
+.RLists > div > span {
+  color: #2979ff;
+}
 @media screen and (max-width: 500px) {
   .SelfServiceTable {
     overflow-x: auto;
@@ -19,6 +34,6 @@
     grid-template-columns: 60% 60% 30% 60%;
   }
   .SelfServiceTable > hr {
-      width: 210%;
+    width: 210%;
   }
 }

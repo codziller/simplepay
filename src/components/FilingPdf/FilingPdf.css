@@ -1,0 +1,8 @@
+.FilingPdfTable {
+    font-size: .5em;
+    width: 42%;
+}
+.FilingPdfTable > tr {
+    display: grid;
+    grid-template-columns: calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15) calc(100%/15);
+}
