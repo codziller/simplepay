@@ -114,24 +114,32 @@ const PaySummary = (props) => (
           </div>
           <div>
             <div className="PaymentInfoCounter">{props.paySlipCount}</div>
-            <Link to='/pay-slip-pdf'><i className="far fa-file-pdf"></i></Link>
+            <Link to="/pay-slip-pdf">
+              <i className="far fa-file-pdf"></i>
+            </Link>
             <i className="far fa-file-excel"></i>
           </div>
           <div>
             <div className="PaymentInfoCounter">{props.cashCount}</div>
-            <Link to='/pay-slip-pdf'><i className="far fa-file-pdf"></i></Link>
+            <Link to="/pay-slip-pdf">
+              <i className="far fa-file-pdf"></i>
+            </Link>
             <i className="far fa-file-excel"></i>
           </div>
           <div>
             <div className="PaymentInfoCounter">{props.giroCount}</div>
-            <Link to='/pay-slip-pdf'><i className="far fa-file-pdf"></i></Link>
+            <Link to="/pay-slip-pdf">
+              <i className="far fa-file-pdf"></i>
+            </Link>
             <i className="far fa-file-excel"></i>
             <i className="fas fa-file-export"></i>
           </div>
         </div>
         <div className="AccountInfo">
           Account Info:
-          <Link to='/pay-slip-pdf'><i className="far fa-file-pdf"></i></Link>
+          <Link to="/pay-slip-pdf">
+            <i className="far fa-file-pdf"></i>
+          </Link>
           <i className="far fa-file-excel"></i>
         </div>
       </div>
@@ -213,7 +221,7 @@ const Payruns = () => {
     let payslips = [];
     if (timeFrame === "weekly") {
       data.name = weeklyPendingPayRuns[payslipIndex].date;
-      console.log(weeklyPendingPayRuns[payslipIndex])
+      console.log(weeklyPendingPayRuns[payslipIndex]);
       for (let payRun of weeklyPendingPayRuns[payslipIndex].data) {
         payslips.push(payRun.id);
       }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Preview from "./Preview";
 import Pdf from "react-to-pdf";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
@@ -12,21 +13,37 @@ const MyDocument = (props) => {
   const [loading, setLoading] = useState(false);
 
   const loadData = () => {
-    const search = props.history.location.search;
+ //   const search = props.history.location.search;
     setLoading(true);
-    axios.get(BASE_URL + "/api/view-payrun-by-date/" + search).then((res) => {
-      setLoading(false);
-      setData(res.data);
-    });
+    axios
+      .get(BASE_URL + "/api/view-payslip-by-date/", {
+        // headers: {
+        //   Authorization:
+        //     user && user.access_token ? `Bearer ${user.access_token}` : "",
+        // },
+        params: {
+          date: "2020-11-04",
+          timeframe: "weekly",
+          is_finalized: "True",
+        },
+      })
+      .then((res) => {
+        setLoading(false);
+        setData(res.data);
+      });
+    // axios.get(BASE_URL + "/api/view-payrun-by-date/" + search).then((res) => {
+    //   setLoading(false);
+    //   setData(res.data);
+    // });
   };
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
   let content;
   if (loading) {
     content = <Loading />;
   } else if (data) {
-    console.log(data)
+    console.log(data);
     content = (
       <>
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -38,45 +55,27 @@ const MyDocument = (props) => {
             )}
           </Pdf>
         </div>
-        <div ref={ref} style={{ padding: 20, width: "40%" }}>
-          <h2 style={{ textAlign: "center" }}>Demo Company</h2>
-          <div style={{ display: "flex" }}>
-            <div style={{ width: "75%" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "30% 70%" }}>
-                <h4>Employee Name</h4>
-                <p>John, Doe</p>
-                <h4>Period</h4>
-                <p>2020-10-15 to 2020-10-21</p>
-                <h4>NRIC</h4>
-                <p>S3495507G</p>
-                <h4>Job Title</h4>
-                <p>Software Engineer</p>
-                <h4>Employment Date</h4>
-                <p>2020-10-10</p>
-              </div>
-            </div>
-            <div style={{ width: "25%" }}>
-              76 North Bridge Rd. #05-07 Bridge Towers Singapore 149281
-            </div>
-          </div>
-          <hr />
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "30% auto auto auto auto",
-            }}
-          >
-            <h4>Leave Type</h4>
-            <h4>Balance</h4>
-            <h4>Adjmt.</h4>
-            <h4>Taken</h4>
-            <h4>Sched.</h4>
-            <p>Annual</p>
-            <p>3.10</p>
-            <p>0.00</p>
-            <p>0.00</p>
-            <p>0.00</p>
-          </div>
+        <div ref={ref} className="slip_pdf_file_container">
+          <h1 style={{ textAlign: "center" , marginBottom:"10px"}}>{data[0].company_name}</h1>
+
+          {data.map((item, i) => {
+            return (
+              <Preview
+                key={"preview" + i}
+                name={item.employee_name}
+                period={item.period}
+                nric={item.nric}
+                job={item.job_title}
+                date={item.employment_date}
+                companyAddress={item.company_address}
+                leaveType={"Annual"}
+                balance={item.annual_balance}
+                adjmt={item.annual_adjustments}
+                taken={item.annual_taken}
+                sched={item.annual_schedule}
+              />
+            );
+          })}
         </div>
       </>
     );

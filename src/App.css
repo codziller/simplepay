@@ -1,9 +1,62 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 .Body {
   margin-top: 100px;
 }
+
+/* Pdf slip styles */
+.slip_pdf_file_container {
+  padding: 40px 20px;
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.payslip_preview_container {
+  font-size: 1rem;
+  overflow-x: scroll;
+}
+.payslip_preview_container,
+.payslip_preview_heading,
+.payslip_preview_container > table {
+  width: 100%;
+}
+.payslip_preview_container > table th {
+  text-align: left;
+}
+.payslip_preview_container > div {
+  border-bottom: 3px solid #000000;
+  margin-bottom: 20px;
+}
+.payslip_preview_heading {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 10px 20px;
+}
+.payslip_preview_container > table {
+  border-collapse: collapse;
+}
+.payslip_preview_container > table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #1c54b2;
+  color: white;
+}
+.payslip_preview_container > table th,
+.payslip_preview_container > table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
 @media screen and (max-width: 1300px) {
   h1 {
     font-size: 1.5rem;
@@ -18,6 +71,18 @@
   div,
   span,
   button {
-    font-size: 0.8rem;
+    font-size: 1rem;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .slip_pdf_file_container {
+    padding: 20px 10px;
+  }
+  .payslip_preview_heading {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .payslip_preview_heading table {
+    width: 100%;
   }
 }
